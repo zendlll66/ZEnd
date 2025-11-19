@@ -1,27 +1,28 @@
 const Footer = () => {
   const footerSections = [
     {
-      title: "Studio",
+      title: "Navigation",
       links: [
-        { label: "Our Story", href: "#about" },
-        { label: "Process", href: "#process" },
-        { label: "Careers", href: "#careers" },
+        { label: "Work", href: "/work" },
+        { label: "Activities", href: "/activities" },
+        { label: "Gallery", href: "/profile" },
+        { label: "Contact", href: "/contact" },
       ],
     },
     {
-      title: "Work",
+      title: "Resources",
       links: [
-        { label: "Case Studies", href: "#work" },
-        { label: "Clients", href: "#clients" },
-        { label: "Testimonials", href: "#testimonials" },
-      ],
-    },
-    {
-      title: "Connect",
-      links: [
-        { label: "Email", href: "mailto:hello@zend.studio" },
+        { label: "Resume", href: "/resume" },
+        { label: "GitHub", href: "https://github.com" },
         { label: "LinkedIn", href: "https://www.linkedin.com" },
-        { label: "Dribbble", href: "https://dribbble.com" },
+      ],
+    },
+    {
+      title: "Contact",
+      links: [
+        { label: "kittithat.dev@gmail.com", href: "mailto:kittithat.dev@gmail.com" },
+        { label: "+66 95 643 3948", href: "tel:+66956433948" },
+        { label: "Phitsanulok, Thailand", href: "https://maps.google.com/?q=Phitsanulok" },
       ],
     },
   ];
@@ -32,14 +33,14 @@ const Footer = () => {
         <div className="grid gap-12 md:grid-cols-[2fr,3fr]">
           <div className="space-y-5">
             <div className="text-sm font-semibold uppercase tracking-[0.4em] text-neutral-500">
-              ZEnd Studio
+              ZEnd
             </div>
             <p className="max-w-sm text-base leading-relaxed text-neutral-600">
-              We craft minimal, human-centered digital experiences for brands
-              that want to leave a timeless impression.
+              Website developer specializing in React, Next.js, and full-stack development. 
+              Crafting modern, efficient, and reliable web applications.
             </p>
             <p className="text-sm text-neutral-400">
-              © {new Date().getFullYear()} ZEnd Studio. All rights reserved.
+              © {new Date().getFullYear()} ZEnd. All rights reserved.
             </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-3">
@@ -53,7 +54,9 @@ const Footer = () => {
                     <li key={link.label}>
                       <a
                         href={link.href}
-                        className="transition duration-200 hover:text-neutral-900"
+                        target={link.href.startsWith("http") ? "_blank" : undefined}
+                        rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        className="transition duration-200 hover:text-neutral-900 break-words"
                       >
                         {link.label}
                       </a>

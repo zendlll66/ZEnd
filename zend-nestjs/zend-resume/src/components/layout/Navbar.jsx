@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Images, Code, Award, Mail } from "lucide-react";
 
 const overlayVariants = {
   hidden: { opacity: 0, y: -16 },
@@ -41,10 +42,11 @@ const listVariants = {
 const Navbar = () => {
   const navItems = useMemo(
     () => [
-      { label: "Work", href: "#work" },
-      { label: "Expertise", href: "#expertise" },
-      { label: "About", href: "#about" },
-      { label: "Contact", href: "#contact" },
+      { label: "Work", href: "/work", icon: Code },
+      { label: "Activities", href: "/activities", icon: Award },
+      // { label: "Expertise", href: "#expertise" },
+      // { label: "About", href: "#about" },
+      { label: "Contact", href: "/contact", icon: Mail },
     ],
     []
   );
@@ -74,27 +76,55 @@ const Navbar = () => {
             className="text-lg font-semibold tracking-tight text-neutral-900 transition duration-200 hover:text-neutral-600"
             onClick={handleClose}
           >
-            ZEnd Studio
+            ZEnd
           </Link>
           <div className="hidden items-center gap-8 text-sm font-medium text-neutral-600 md:flex">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="transition duration-200 hover:text-neutral-900"
-                onClick={handleClose}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="group relative flex items-center gap-2 transition duration-200 hover:text-neutral-900"
+                  onClick={handleClose}
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  >
+                    <Icon className="h-4 w-4 transition-transform duration-200 group-hover:text-lime-500" />
+                  </motion.div>
+                  <span className="relative">
+                    {item.label}
+                    <motion.span
+                      className="absolute bottom-0 left-0 h-[2px] w-0 bg-lime-500"
+                      whileHover={{ width: "100%" }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                    />
+                  </span>
+                </Link>
+              );
+            })}
           </div>
           <div className="flex items-center gap-3">
+            <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+              <Link
+                href="/profile"
+                className="hidden items-center gap-2 rounded-full border border-neutral-900/10 bg-white px-4 py-2 text-sm font-medium text-neutral-900 transition duration-200 hover:border-lime-500/50 hover:bg-lime-50 hover:text-lime-700 md:inline-flex"
+                onClick={handleClose}
+              >
+                <motion.div whileHover={{ rotate: 5 }} transition={{ duration: 0.2 }}>
+                  <Images className="h-4 w-4" />
+                </motion.div>
+                Gallery
+              </Link>
+            </motion.div>
             <Link
-              href="#consult"
+              href="/resume"
               className="hidden rounded-full border border-neutral-900/10 bg-neutral-900 px-4 py-2 text-sm font-medium text-white transition duration-200 hover:border-neutral-900 hover:bg-neutral-800 md:inline-flex"
               onClick={handleClose}
             >
-              Book a Call
+              Resume
             </Link>
             <button
               type="button"
@@ -134,24 +164,33 @@ const Navbar = () => {
               >
                 <div className="mx-auto max-w-2xl space-y-8">
                   <div className="space-y-4">
-                    {navItems.map((item, index) => (
-                      <motion.div
-                        key={item.href}
-                        custom={index}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                        variants={listVariants}
-                      >
-                        <Link
-                          href={item.href}
-                          className="block text-lg font-medium text-neutral-900 transition duration-200 hover:text-neutral-600"
-                          onClick={handleClose}
+                    {navItems.map((item, index) => {
+                      const Icon = item.icon;
+                      return (
+                        <motion.div
+                          key={item.href}
+                          custom={index}
+                          initial="hidden"
+                          animate="visible"
+                          exit="exit"
+                          variants={listVariants}
                         >
-                          {item.label}
-                        </Link>
-                      </motion.div>
-                    ))}
+                          <Link
+                            href={item.href}
+                            className="group flex items-center gap-3 text-lg font-medium text-neutral-900 transition duration-200 hover:text-neutral-600"
+                            onClick={handleClose}
+                          >
+                            <motion.div
+                              whileHover={{ scale: 1.15, rotate: 5 }}
+                              transition={{ duration: 0.2, ease: "easeOut" }}
+                            >
+                              <Icon className="h-5 w-5 transition-colors duration-200 group-hover:text-lime-500" />
+                            </motion.div>
+                            <span>{item.label}</span>
+                          </Link>
+                        </motion.div>
+                      );
+                    })}
                   </div>
                   <motion.div
                     initial={{ opacity: 0, y: 16 }}
